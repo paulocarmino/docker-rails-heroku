@@ -2,7 +2,15 @@
 
 Skeleton a development environment with Rails, PostgreSQL and Heroku CLI running on Docker.
 
-#### 1. Edit `USER_NAME` and `USER_EMAIL` variables in `app/Dockerfile` with git credentials. 
+#### 1. Configure git credential variables. 
+Edit ```app/Dockerfile```
+```yaml
+[...]
+# Git Variables
+ENV USER_NAME 'YOUR NAME'
+ENV USER_EMAIL 'YOUR EMAIL'
+[...]
+```
 
 #### 2. Create a Rails APP and build image.
 ```bash
