@@ -1,0 +1,21 @@
+    version: '3'
+    services:
+      db:
+        image: postgres
+      web:
+        build: ./web
+        image: web
+        ports:
+          - "8080:80"
+        depends_on:
+          - app
+      app:
+        build: ./app
+        image: app
+        command: puma
+        volumes:
+          - ./app:/app
+        expose:
+          - "3000"
+        depends_on:
+          - db
