@@ -1,8 +1,8 @@
 # Rails on Docker with Heroku
 
-Skeleton a development environment with Rails, PostgreSQL and Heroku CLI running on Docker.
+Skeleton a development environment with Rails, PostgreSQL and Heroku CLI ning on Docker.
 
-#### 1. Configure git credential variables. 
+#### 1. Configure git credential variables.
 Edit ```app/Dockerfile```
 ```yaml
 [...]
@@ -14,7 +14,8 @@ ENV USER_EMAIL 'YOUR EMAIL'
 
 #### 2. Create a Rails APP and build image.
 ```bash
-docker-compose run app rails new . --force --database=postgresql --skip-bundle
+docker-compose  app bundle install
+docker-compose  app bundle run rails new . --force --database=postgresql --skip-bundle
 docker-compose build
 ```
 
@@ -40,14 +41,14 @@ test:
 
 ```bash
 docker-compose up
-docker-compose exec app rails db:create
+docker-compose run app bundle exec rake db:create
 ```
 
 #### 5. Deploying in Heroku
 ```bash
-docker-compose exec app git init
-docker-compose exec app git add .
-docker-compose exec app git commit -m 'Inital Commit'
-docker-compose exec app heroku create
-docker-compose exec app git push heroku master
+docker-compose run app git init
+docker-compose run app git add .
+docker-compose run app git commit -m 'Inital Commit'
+docker-compose run app heroku create
+docker-compose run app git push heroku master
 ```

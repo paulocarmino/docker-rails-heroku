@@ -1,21 +1,33 @@
-    version: '3'
-    services:
-      db:
-        image: postgres
-      web:
-        build: ./web
-        image: web
-        ports:
-          - "8080:80"
-        depends_on:
-          - app
-      app:
-        build: ./app
-        image: app
-        command: puma
-        volumes:
-          - ./app:/app
-        expose:
-          - "3000"
-        depends_on:
-          - db
+version: '2'
+services:
+  db:
+    image: 'postgres:9.5'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+  web:
+    build: ./web
+    image: web
+    command: service nginx start
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+  app:
+    build: ./app
+    image: app
+    command: bash start
+    volumes:
+      - ./app:/app
+    volumes_from:
+      - box
+    expose:
+      - "3000"
+    depends_on:
+      - db
+  box:
+    image: busybox
+    volumes:
+      - /box
+
+volumes:
+  postgres:
